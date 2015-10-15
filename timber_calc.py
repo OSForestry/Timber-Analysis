@@ -28,6 +28,10 @@ def basalarea_sqft(data,dbh):
 	ba = ((numpy.pi*(data[dbh]**2))/576)
 	return recfunctions.append_fields(data,"basal_area",ba)
 
+def vol_international(data,):
+	""" 0.06545 * D^2 * L """`
+	return
+
 
 # Calculate Basal Area in SqFt Example (Replace the basalarea_sqft function with what ever funciton is being tested)
 data = import_data(input_path,delimiter)  # Import the data from csv
