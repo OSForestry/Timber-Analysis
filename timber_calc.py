@@ -5,8 +5,8 @@ from numpy.lib import recfunctions
 
 
 # Set user variables, this will migrate to command line arg
-input_path = "/home/ygritte/github/Timber-Calculations/sample_data/ExampleA-TreeSpeciesDBH.csv"
-output_path = "/home/ygritte/github/Timber-Calculations/tmp.csv"
+input_path = "/home/eaerdmann/git/osforestry/Timber-Calculations/sample_data/ExampleA-TreeSpeciesDBH.csv"
+output_path = "/home/eaerdmann/git/osforestry/Timber-Calculations/tmp.csv"
 delimiter = ","
 plot_type = ""
 unit_type = ""
@@ -28,14 +28,16 @@ def basalarea_sqft(data,dbh):
 	ba = ((numpy.pi*(data[dbh]**2))/576)
 	return recfunctions.append_fields(data,"basal_area",ba)
 
-def vol_international(data,):
-	""" 0.06545 * D^2 * L """`
-	return
+def vol_international(data,dbh):
+	vol_16log = ((0.88*(data[dbh]))**2)-(1.52*(data[dbh])-(1.36))
+	""" 0.06545 * D^2 * L """
+	return recfunctions.append_fields(data, "volume", vol_16log)
 
 
 # Calculate Basal Area in SqFt Example (Replace the basalarea_sqft function with what ever funciton is being tested)
 data = import_data(input_path,delimiter)  # Import the data from csv
-data = basalarea_sqft(data,"dbh")  # Calculate basal area using the "dbh" field
+data = vol_international(data,"dbh")  # Calculate basal area using the "dbh" field
+print data #Tests output of data for validation
 export_data(output_path, data)  # Export the newly edited data to csv
 """ 
 	Optionally you could use:
