@@ -10,7 +10,7 @@ output_path = "/home/eaerdmann/git/osforestry/Timber-Calculations/tmp.csv"
 delimiter = ","
 plot_type = ""
 unit_type = ""
-
+log_length=raw_input("PLease enter a log length to be used in the log rule calculations!")
 
 def import_data(path,delimiter):
 	# Generate numpy array from input
@@ -28,17 +28,44 @@ def basalarea_sqft(data,dbh):
 	ba = ((numpy.pi*(data[dbh]**2))/576)
 	return recfunctions.append_fields(data,"basal_area",ba)
 
-def vol_international(data,dbh):
-	vol_16log = ((0.88*(data[dbh]))**2)-(1.52*(data[dbh])-(1.36))
-	""" 0.06545 * D^2 * L """
-	return recfunctions.append_fields(data, "volume", vol_16log)
-
+def vol_international(data,dbh,log_length):
+	if log_length == 8:
+		vol_8log = ((0.44*(data[dbh]))**2)-(1.20*(data[dbh])-(1.30))
+		return recfunctions.append_fields(data, "8 ft log volume", vol_8log)
+	elif log_length == 12:
+		vol_12log = ((0.66*(data[dbh]))**2)-(1.47*(data[dbh])-(0.79))
+		return recfunctions.append_fields(data, "12 ft log volume", vol_12log)
+	elif log_length == 16:
+		vol_16log = ((0.88*(data[dbh]))**2)-(1.52*(data[dbh])-(1.36))
+		return recfunctions.append_fields(data, "16 ft log volume", vol_16log)
+	else: 
+		print "No valid log lenth entered!"
 
 # Calculate Basal Area in SqFt Example (Replace the basalarea_sqft function with what ever funciton is being tested)
 data = import_data(input_path,delimiter)  # Import the data from csv
-data = vol_international(data,"dbh")  # Calculate basal area using the "dbh" field
-print data #Tests output of data for validation
-export_data(output_path, data)  # Export the newly edited data to csv
+dbh = (data["dbh"])
+export_data(output_path, data)  # Exhow to return multiple values from a function in pythonport the newly edited data to csv
+
+menu = {1: "International Volume Log Rule", 2: "Doyle Log Rule", 3: "Scribner Log Rule", 4: "Exit"}
+print "Please select the log rule you want to use in your calculations."
+while True:
+	options=menu.keys()
+	options.sort()
+	for entry in options:
+		print entry, menu[entry]
+	selection=raw_input("Please select: ")
+	if selection == '1':
+		print "International Volume Log Rule Selected"
+		vol_international(data,dbh,log_length)
+	elif selection == '2':
+		print "Doyle Log Rule Selected"
+	elif selection  == '3':
+		print "Scribner Log Rule Selected"
+	elif selection == '4':
+		break
+	else:
+		print "Unknown Option Selected!"
+
 """ 
 	Optionally you could use:
 	export_data(output_path, basalarea_sqft(import_data(input_path,delimiter),"dbh"))
