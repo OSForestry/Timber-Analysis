@@ -1,0 +1,4 @@
+*.pyc
+config.cfg
+output.csv
+summary.csv
