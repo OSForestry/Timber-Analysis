@@ -5,5 +5,5 @@ containing the DBH and Logs of trees and useful metrics such as merchantable vol
 calculated. Summary statistics summarizing per unit area are also provided.
 
 ## Requirements
-python 2.7
-numpy 1.9
+- python 2.7
+- numpy 1.9
