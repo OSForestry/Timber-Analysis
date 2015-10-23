@@ -1,0 +1,38 @@
+# Template configuration for timber_calc.py
+# Rename this file config.cfg to use
+
+[input]
+path = /home/ygritte/github/Timber-Calculations/sample_data/ExampleA-TreeSpeciesDBH.csv
+# Currently, only text format is supported
+format = text
+# If format is text specify delimiter
+delimiter = ,
+# imperial/metric
+measurement_system = imperial
+
+[output]
+path = /home/ygritte/github/Timber-Calculations/output.csv
+# If output format is not specified, it will be the same as the input
+format
+# If format is text specify delimiter
+delimiter
+# Possible fields: ba (basal area), vol (volume)
+fields = [ba,vol]
+
+[summary]
+path = /home/ygritte/github/Timber-Calculations/summary.csv
+# Summary type can be: plot/total/both
+type
+# If by plot or other unit specify the field to group by
+group_by
+
+[plot]
+# fixed/variable
+type = fixed
+# Plot size should be a decimal number for fixed area plots and the Basal Area Factor for variable radius plots
+size = 0.02
+
+[volume]
+# cubic/doyle/scribner/international
+rule = international
+log_length = 8
